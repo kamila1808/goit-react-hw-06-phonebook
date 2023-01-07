@@ -3,19 +3,26 @@ import { ContactItem } from '../ContactItem/ContactItem';
 import { ListItem, List } from './ContactList.styled';
 import { useSelector } from 'react-redux';
 import { getContacts } from 'redux/contacts/contacts-selectors';
+import { getFilter } from 'redux/filter/filter-selectors';
 
 export const ContactList = () => {
   const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
+
+
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
 
   return (
     <List>
-      {contacts.map(contact => {
+      {filteredContacts.map(({id, name, number}) => {
         return (
-          <ListItem key={contact.id}>
+          <ListItem key={id}>
             <ContactItem
-              id={contact.id}
-              name={contact.name}
-              number={contact.number}
+              id={id}
+              name={name}
+              number={number}
             />
           </ListItem>
         );
@@ -24,10 +31,8 @@ export const ContactList = () => {
   );
 };
 
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
+ContactList.protoTypes = {
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };

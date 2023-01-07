@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Label, Form, Input, Button } from './ContactForm.styled';
 import { nanoid } from 'nanoid';
 import Notiflix from 'notiflix';
-import { addContact } from 'redux/contacts/contacts-actions';
+import { addContact } from 'redux/contacts/contactsSlice';
 import { useSelector } from 'react-redux';
 import { getContacts } from 'redux/contacts/contacts-selectors';
 
